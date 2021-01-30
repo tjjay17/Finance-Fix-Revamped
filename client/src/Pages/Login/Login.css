@@ -1,0 +1,75 @@
+.header{
+    display:flex;
+    flex-direction:column;
+    margin:auto;
+}
+
+#loginContainer{
+    width:100vw;
+    height:100vh;
+    font-family: 'Lato',sans-serif;
+    /* border:10px solid #0099ff; */
+    box-sizing: border-box;
+    /* background-image: url('https://svgsilh.com/svg/303165-2196f3.svg'),url('https://svgsilh.com/svg/303165-2196f3.svg');
+    background-size:200px 200px, 300px 300px;
+    background-repeat: no-repeat,no-repeat;
+    background-position: top left,top 50px right -90px;
+    background-attachment:local,local; */
+}
+
+#loginContainer img{
+    margin:auto;
+}
+
+#loginContainer h1{
+    font-size: 4rem;
+    color:#0099ff;
+    text-align: center;
+    font-family: 'Poppings',sans-serif;
+}
+
+#loginContainer p{
+    text-align: center;
+}
+
+#loginContainer form{
+    display:flex;
+    flex-direction: column;
+    width:60%;
+    margin:5vh auto;
+}
+
+#loginContainer input{
+    margin-top:1vh;
+    padding:2%;
+    border:1.5px solid #0099ff;
+    border-radius:25px;
+    font-family:'lato',sans-serif;
+}
+
+#loginContainer button{
+    padding:2%;
+    background:transparent;
+    border:3px solid #0099ff;
+    border-radius: 25px;
+    font-size: 2rem;
+    color:#0099ff;
+    margin: 1vh;
+    cursor: pointer;
+    transition: color 0.7s,background-color 0.8s, border 0.8s;
+}
+
+@media (hover:hover){
+    #loginContainer button:hover{
+        color:white;
+        background-color: #0099ff;
+        border-color: black;
+    }
+
+}
+
+/* @media only screen and (max-width:999px){
+    #loginContainer{
+        background-image: none;
+    }
+} */

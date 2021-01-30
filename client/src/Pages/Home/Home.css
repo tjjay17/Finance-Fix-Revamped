@@ -1,9 +1,10 @@
 #homeContainer h1{
     font-family: 'lato',sans-serif;
     letter-spacing: 3px;
-    font-size:5rem;
+    font-size:3.5rem;
     color:#0099f0;
     text-align:center;
+    z-index: 100;
 }
 
 #homeContainer{
@@ -47,8 +48,12 @@
     transition: color 0.7s,background-color 0.8s, border 0.8s;
 }
 
+#homeSplash{
+
+}
+
 @media (hover:hover){
-    button:hover{
+    #homeContainer button:hover{
         background-color:white;
         color:#0099ff;
         border:3px solid #0099ff;
