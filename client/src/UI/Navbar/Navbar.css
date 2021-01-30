@@ -1,0 +1,19 @@
+#navContainer{
+    width:100vw;
+    height:10vh;
+    background-color: #0099ff;   
+    z-index:100;
+    position: fixed;
+}
+
+#navItems{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-family: 'lato',sans-serif;
+    letter-spacing: 2px;
+    color:white;
+    height:10vh;
+    align-items: center;
+}
+

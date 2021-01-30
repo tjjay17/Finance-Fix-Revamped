@@ -1,5 +1,6 @@
 import React,{useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
+import FeatureCard from '../../Components/FeatureCard/FeatureCard';
 import './Home.css';
 
 const Home = () =>{
@@ -19,10 +20,14 @@ const Home = () =>{
     
     return(
         <div id = 'homeContainer'>
-            {/* <img id = 'homeSplash' src = '/assets/splash.svg' alt = 'splash' /> */}
-            <h1>Finance Fix</h1>
-            <img id = 'chartImg' src = '/assets/chart.svg' alt = 'data'/>
-            <p>Track monthly expenses with the Plaid API - an API that can collect info securely from the bank.</p>
+            <h1>Finance - Fix</h1>
+            <p style = {{fontSize:'4vw'}}>Plaid API integrated system to manage your finances</p>
+            <img id = 'chartImg' src = '/assets/goals.svg' alt = 'chart' />
+            <div id = 'features'>
+                    <FeatureCard src = '/assets/blueDollar.svg' feature = {'Keep Track Of How Much You Spend And Adjust.'}/>
+                    <FeatureCard src = '/assets/plaid.svg' feature = {'Optionally Use Plaid To Directly Integrate Your Bank Account.'}/>
+                    <FeatureCard src = '/assets/secure.svg' feature = {'Securely Use A Platform With Friendly UI.'} />
+            </div>
             <div id = 'buttonGroup'>
                 <button onClick = {handleRegClick}>Register</button>
                 <button onClick = {handleLogClick}>Login</button>
