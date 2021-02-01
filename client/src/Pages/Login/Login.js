@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import Axios from '../../Axios';
 import './Login.css';
 
 const Login = () =>{
@@ -21,6 +22,22 @@ const Login = () =>{
         }));
     }
 
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+
+        Axios.post('/login',{
+            email:inputs.mail,
+            password:inputs.pass
+        })
+            .then(res => console.log(res))
+            .catch(e => console.log(e));
+
+        updateInputs(prev =>({
+            mail:'',
+            pass:''
+        }));
+    }
+
     return(
         <div id = 'loginContainer'>
             <div className = 'header'>
@@ -29,7 +46,7 @@ const Login = () =>{
                 <p>Don't have an account? <a href = '/register'>Register</a></p>
             </div>
 
-            <form>
+            <form onSubmit = {handleSubmit}>
                 <input value = {inputs.mail} onChange = {handleChange} name = 'mail' type = 'email' placeholder = 'Email'/>
                 <input value = {inputs.pass} onChange = {handleChange} name = 'pass' type = 'password' placeholder = 'Password' />
                 <button>Login</button>

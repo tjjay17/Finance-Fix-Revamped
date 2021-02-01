@@ -67,6 +67,10 @@
     margin: 5vh;
 }
 
+#features p{
+    font-family: 'lato', sans-serif;
+}
+
 @media (hover:hover){
     #homeContainer button:hover{
         background-color:white;

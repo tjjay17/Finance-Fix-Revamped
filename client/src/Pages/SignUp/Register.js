@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import Axios from '../../Axios';
 import './Register.css';
 
 const Register = () =>{
@@ -23,9 +24,30 @@ const Register = () =>{
             ...prev,
             [name] : value
         }));
+    }
 
-        console.log(inputs);
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        if(inputs.password === inputs.confirm){
+            Axios.post('/register',{
+                first:inputs.first,
+                last:inputs.last,
+                email:inputs.email,
+                password:inputs.password
+            })
+                .then(res => console.log(res))
+                .catch(e => console.log(e));
+        }else{
+            alert('Passwords Do Not Match. Try Again');
+        }
 
+        updateInputs(prev =>({
+            first:'',
+            last:'',
+            email:'',
+            password:'',
+            confirm:''
+        }));
     }
     
     return(
@@ -35,7 +57,7 @@ const Register = () =>{
                 <img src = '/assets/lock.png' alt = 'new' width = '40' height = '40'/>
                 <p style = {{textAlign:'center'}}>Already have an account? <a href = '/login'>Login</a></p>
             </div>
-            <form>
+            <form onSubmit = {handleSubmit}>
                 <input onChange = {handleChange} type = 'text' value = {inputs.first} name = 'first' placeholder = 'First Name' />
                 <input onChange = {handleChange} type = 'text' value = {inputs.last} name = 'last' placeholder = 'Last Name'/>
                 <input onChange = {handleChange} type = 'email' value = {inputs.email} name = 'email' placeholder = 'Email'/>
