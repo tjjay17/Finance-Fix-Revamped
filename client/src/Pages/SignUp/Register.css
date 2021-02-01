@@ -2,8 +2,9 @@
     width:100vw;
     height:100vh;
     font-family: 'Lato',sans-serif;
-    border:10px solid #0099ff;
     box-sizing: border-box;
+    position:relative;
+    top:10vh;
 }
 
 #regContainer h1{
@@ -26,7 +27,7 @@
 #regContainer form{
     display: flex;
     flex-direction: column;
-    margin:5vh auto;
+    margin:2vh auto;
     width:60%;
 }
 
@@ -44,11 +45,11 @@
     background: transparent;
     margin-top:1vh;
     border-radius:25px;
-    border:3px solid #0099ff;
-    padding:3%;
+    padding:2%;
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.7s,background-color 0.8s, border 0.8s;
+    margin-bottom: 5vh;
 }
 
 @media (hover:hover){

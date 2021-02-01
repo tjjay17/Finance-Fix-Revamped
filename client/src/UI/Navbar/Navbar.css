@@ -1,9 +1,12 @@
 #navContainer{
     width:100vw;
-    height:10vh;
-    background-color: #0099ff;   
+    height:12vh;  
     z-index:100;
     position: fixed;
+    display: none;
+    /* box-shadow:2px 4px 15px 0px #000000; */
+    z-index:10000;
+    transition:background-color 1s;
 }
 
 #navItems{
@@ -12,8 +15,29 @@
     justify-content: space-around;
     font-family: 'lato',sans-serif;
     letter-spacing: 2px;
-    color:white;
+    /* color:white; */
     height:10vh;
     align-items: center;
+    font-size: 2vw;
+}
+
+#navItems a{
+    text-decoration: none;
+}
+
+#navItems a:visited{
+    color:black;
+}
+
+@media only screen and (min-width:800px){
+    #navContainer{
+        display: inline-block;
+    }
+}
+
+@media (hover:hover){
+    #navItems a:hover{
+        text-decoration: underline;
+    }
 }
 

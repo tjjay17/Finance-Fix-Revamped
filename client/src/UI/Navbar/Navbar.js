@@ -1,13 +1,20 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = () =>{
+const Navbar = (props) =>{
     return (
-        <div id = 'navContainer'>
+        <div id = 'navContainer' style = {{backgroundColor:props.color}}>
             <div id = 'navItems'>
-                <p>Home</p>
-                <p>Register</p>
-                <p>Login</p>
+                <Link to = '/'>
+                    <p>Home</p>
+                </Link>
+                <Link to = '/register'>
+                    <p>Register</p>
+                </Link>
+                <Link to = '/login'>
+                    <p>Login</p>
+                </Link>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ import './Register.css';
 const Register = () =>{
     useEffect(() =>{
         document.title = 'Finance-Fix';
+        window.scrollTo(0,0);
     });
 
     const [inputs, updateInputs] = useState({

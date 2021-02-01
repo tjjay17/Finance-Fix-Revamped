@@ -8,13 +8,10 @@
     width:100vw;
     height:100vh;
     font-family: 'Lato',sans-serif;
-    /* border:10px solid #0099ff; */
     box-sizing: border-box;
-    /* background-image: url('https://svgsilh.com/svg/303165-2196f3.svg'),url('https://svgsilh.com/svg/303165-2196f3.svg');
-    background-size:200px 200px, 300px 300px;
-    background-repeat: no-repeat,no-repeat;
-    background-position: top left,top 50px right -90px;
-    background-attachment:local,local; */
+    position:relative;
+    top:12vh;
+    
 }
 
 #loginContainer img{

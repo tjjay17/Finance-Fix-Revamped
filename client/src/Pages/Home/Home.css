@@ -1,9 +1,21 @@
+@keyframes opacityLoad{
+    0%{
+        opacity:0;
+    }
+
+    100%{
+        opacity:1;
+    }
+}
+
 #homeContainer{
     height:100%;
     width:100vw;
     overflow-x: hidden;
     position: relative;
     top:10vh;
+    animation-name: opacityLoad;
+    animation-duration: 2s;
 }
 
 #homeContainer h1{
