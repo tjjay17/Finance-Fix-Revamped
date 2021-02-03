@@ -4,7 +4,7 @@ import './Register.css';
 
 const Register = () =>{
     useEffect(() =>{
-        document.title = 'Finance-Fix';
+        document.title = 'Register';
         window.scrollTo(0,0);
     });
 

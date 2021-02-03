@@ -29,9 +29,20 @@
     color:black;
 }
 
+#SideDrawerBar{
+    height:10vh;
+    width:100vw;
+    background-color:#0099ff;
+    position:fixed;
+}
+
 @media only screen and (min-width:800px){
     #navContainer{
         display: inline-block;
+    }
+
+    #SideDrawerBar{
+        display: none;
     }
 }
 
