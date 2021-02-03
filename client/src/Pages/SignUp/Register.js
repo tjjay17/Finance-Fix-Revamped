@@ -1,8 +1,10 @@
 import React,{useState,useEffect} from 'react';
 import Axios from '../../Axios';
+import {useHistory} from 'react-router-dom';
 import './Register.css';
 
 const Register = () =>{
+    let history = useHistory();
     useEffect(() =>{
         document.title = 'Register';
         window.scrollTo(0,0);
@@ -35,7 +37,10 @@ const Register = () =>{
                 email:inputs.email,
                 password:inputs.password
             })
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res);
+                    history.push('/login');
+                })
                 .catch(e => console.log(e));
         }else{
             alert('Passwords Do Not Match. Try Again');
@@ -66,7 +71,7 @@ const Register = () =>{
                 <button>Register</button>
             </form>
         </div>
-    )
+    );
 }
 
 export default Register;

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const db = require('../DBconfig');
+const jwt = require('jsonwebtoken');
 const constants = require('../Constants');
 
 exports.register = (req,res) =>{
@@ -16,15 +17,24 @@ exports.register = (req,res) =>{
         .then(hash =>{
             db.pool.connect()
                 .then(client =>{
-                    let query = 'INSERT INTO Users (fName, lName, Email,Password) Values($1,$2,$3,$4)';
-                    client.query(query,[first,last,email,hash])
-                        .then(result => {
-                            client.release();
-                            res.send(result);
-                        })
-                        .catch(e =>{
-                            client.release();
-                            res.send(e);
+                    let query = 'SELECT * FROM Users WHERE Email = $1';
+                    client.query(query,[email])
+                        .then(result =>{
+                            if(result.rows.length > 0){
+                                console.log('It is touching');
+                                res.sendStatus(409);
+                            }else{
+                                query = 'INSERT INTO Users (fName, lName, Email,Password) Values($1,$2,$3,$4)';
+                                client.query(query,[first,last,email,hash])
+                                    .then(result => {
+                                        client.release();
+                                        res.send(result);
+                                    })
+                                    .catch(e =>{
+                                        client.release();
+                                        res.send(e);
+                                    });
+                            }
                         });
                 });
         })
@@ -37,6 +47,29 @@ exports.register = (req,res) =>{
 exports.login = (req,res) =>{
     let email = req.body.email;
     let password = req.body.password;
-    res.send({email:email,password:password});
+    let query = 'SELECT * FROM Users WHERE Email = $1';
+    console.log(email,password);
+
+    db.pool.query(query,[email])
+        .then(result =>{
+            if(result.rows.length > 0){
+                if(email === result.rows[0].email){
+                    let hash = result.rows[0].password;
+                    bcrypt.compare(password,hash)
+                        .then(isMatch =>{
+                            if(isMatch){
+                                //expiresin hour and a half
+                                let jwToken = jwt.sign({email:email},constants.JWT_KEY,{expiresIn:5400});
+                                //console.log(jwToken);
+                                res.send(jwToken);
+                            }else{
+                                res.send(409);
+                            }
+                        })
+                        .catch(e => res.send(e));
+                }
+            }
+        })
+
     //database work goes in here.
 }
