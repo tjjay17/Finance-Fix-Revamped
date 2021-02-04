@@ -5,6 +5,7 @@ import './Register.css';
 
 const Register = () =>{
     let history = useHistory();
+    let [isLoading,updateLoading] = useState(false);
     useEffect(() =>{
         document.title = 'Register';
         window.scrollTo(0,0);
@@ -30,7 +31,9 @@ const Register = () =>{
 
     const handleSubmit = (event) =>{
         event.preventDefault();
+
         if(inputs.password === inputs.confirm){
+            updateLoading(true);
             Axios.post('/register',{
                 first:inputs.first,
                 last:inputs.last,
@@ -68,7 +71,7 @@ const Register = () =>{
                 <input onChange = {handleChange} type = 'email' value = {inputs.email} name = 'email' placeholder = 'Email'/>
                 <input onChange = {handleChange} type = 'password' value = {inputs.password} name = 'password' placeholder = 'Password'/>
                 <input onChange = {handleChange} type = 'password' value = {inputs.confirm} name = 'confirm' placeholder = 'Confirm Password'/>
-                <button>Register</button>
+                <button>{isLoading ? <img width = '30' height = '30' src = '/assets/spinner.gif' alt = 'spinner' /> : 'Register'}</button>
             </form>
         </div>
     );
