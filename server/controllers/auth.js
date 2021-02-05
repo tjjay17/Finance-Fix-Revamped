@@ -61,7 +61,7 @@ exports.login = (req,res) =>{
                                 //expiresin hour and a half
                                 let jwToken = jwt.sign({email:email},constants.JWT_KEY,{expiresIn:5400});
                                 //console.log(jwToken);
-                                res.send(jwToken);
+                                res.send({token:jwToken,email:email,name:result.rows[0].fname});
                             }else{
                                 res.send(409);
                             }
@@ -70,6 +70,15 @@ exports.login = (req,res) =>{
                 }
             }
         })
-
     //database work goes in here.
+}
+
+exports.verifyToken = (req,res) =>{
+    let token = req.body.token;
+    let decoded = jwt.verify(token,constants.JWT_KEY);
+    if(decoded){
+        res.send({status:true});
+    }else{
+        res.send({status:false});
+    }     
 }

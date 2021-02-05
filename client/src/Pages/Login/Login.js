@@ -1,11 +1,17 @@
 import React,{useState,useEffect} from 'react';
+import {connect} from 'react-redux';
+//it makes more sense to migrate all actions to one file.
+//I will do that as I realize there is a need for more reducers.
+import * as actions from '../../redux/actions/auth';
 import Axios from '../../Axios';
 import './Login.css';
 
-const Login = () =>{
+const Login = (props) =>{
     useEffect(() =>{
         document.title = 'Login';
     });
+
+    const [isLoading,updateLoading] = useState(false);
 
     const [inputs, updateInputs] = useState({
         mail:'',
@@ -24,13 +30,21 @@ const Login = () =>{
 
     const handleSubmit = (e) =>{
         e.preventDefault();
+        updateLoading(true);
 
         Axios.post('/login',{
             email:inputs.mail,
             password:inputs.pass
         })
-            .then(res => console.log(res))
-            .catch(e => console.log(e));
+            .then(res => {
+                localStorage.setItem('token',res.data.token);
+                props.addUser(res.data.token,res.data.token,res.data.name);
+                console.log(res.data);
+            })
+            .catch(e => {
+                updateLoading(false);
+                alert(e);
+            });
 
         updateInputs(prev =>({
             mail:'',
@@ -47,12 +61,18 @@ const Login = () =>{
             </div>
 
             <form onSubmit = {handleSubmit}>
-                <input value = {inputs.mail} onChange = {handleChange} name = 'mail' type = 'email' placeholder = 'Email'/>
-                <input value = {inputs.pass} onChange = {handleChange} name = 'pass' type = 'password' placeholder = 'Password' />
-                <button>Login</button>
+                <input required value = {inputs.mail} onChange = {handleChange} name = 'mail' type = 'email' placeholder = 'Email'/>
+                <input required value = {inputs.pass} onChange = {handleChange} name = 'pass' type = 'password' placeholder = 'Password' />
+                <button>{isLoading ? <img width = '35' height = '35' src = '/assets/spinner.gif' alt = 'spinner'/> : 'Login'}</button>
             </form>
         </div>
     );
 }
 
-export default Login;
+const mapDispatchToProps = dispatch =>{
+    return{
+        addUser:(token,email,name) => dispatch(actions.addToken(token,email,name))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

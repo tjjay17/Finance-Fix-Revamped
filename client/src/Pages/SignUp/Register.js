@@ -66,11 +66,11 @@ const Register = () =>{
                 <p style = {{textAlign:'center'}}>Already have an account? <a href = '/login'>Login</a></p>
             </div>
             <form onSubmit = {handleSubmit}>
-                <input onChange = {handleChange} type = 'text' value = {inputs.first} name = 'first' placeholder = 'First Name' />
-                <input onChange = {handleChange} type = 'text' value = {inputs.last} name = 'last' placeholder = 'Last Name'/>
-                <input onChange = {handleChange} type = 'email' value = {inputs.email} name = 'email' placeholder = 'Email'/>
-                <input onChange = {handleChange} type = 'password' value = {inputs.password} name = 'password' placeholder = 'Password'/>
-                <input onChange = {handleChange} type = 'password' value = {inputs.confirm} name = 'confirm' placeholder = 'Confirm Password'/>
+                <input required onChange = {handleChange} type = 'text' value = {inputs.first} name = 'first' placeholder = 'First Name' />
+                <input required onChange = {handleChange} type = 'text' value = {inputs.last} name = 'last' placeholder = 'Last Name'/>
+                <input required onChange = {handleChange} type = 'email' value = {inputs.email} name = 'email' placeholder = 'Email'/>
+                <input maxLength = '15' minLength = '7' required onChange = {handleChange} type = 'password' value = {inputs.password} name = 'password' placeholder = 'Password'/>
+                <input required onChange = {handleChange} type = 'password' value = {inputs.confirm} name = 'confirm' placeholder = 'Confirm Password'/>
                 <button>{isLoading ? <img width = '30' height = '30' src = '/assets/spinner.gif' alt = 'spinner' /> : 'Register'}</button>
             </form>
         </div>
