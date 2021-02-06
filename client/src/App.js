@@ -6,16 +6,18 @@ import Navbar from './UI/Navbar/Navbar';
 import {connect} from 'react-redux';
 import {verifyToken} from './redux/actions/auth';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import './App.css';
 import React,{useState,useEffect} from 'react';
+import Sidedrawer from './UI/SideDrawer/Sidedrawer';
 
 function App(props) {
   const [color,updateColor] = useState('');
-  const [isLoading,updateScreen] = useState(true);
+  const [isOpen,toggle] = useState(false);
   let routes;
 
   useEffect(() =>{
     props.verify(); 
-    updateScreen(false);
+    document.title = 'Dashboard';
     document.addEventListener('scroll',handleScroll)
   },[]);
 
@@ -52,14 +54,11 @@ function App(props) {
       </Switch>
     );
   }
-  
-  // if(isLoading){
-
-  // }
  
   return (
     <div className="App" style = {{overflow:'hidden'}}>
-      <Navbar color = {color} />
+      <Navbar openDrawer = {() => toggle(prev => !prev)} open = {isOpen} color = {color} />
+      {isOpen ? <Sidedrawer className = 'slideOpen' closeDrawer = {() => toggle(prev => !prev)} /> : null}
       {routes}
     </div>
   );

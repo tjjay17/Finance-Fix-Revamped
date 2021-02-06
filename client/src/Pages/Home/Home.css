@@ -14,8 +14,8 @@
     overflow-x: hidden;
     position: relative;
     top:10vh;
-    animation-name: opacityLoad;
-    animation-duration: 2s;
+    /* animation-name: opacityLoad;
+    animation-duration: 2s; */
 }
 
 #homeContainer h1{

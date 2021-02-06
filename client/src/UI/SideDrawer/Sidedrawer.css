@@ -1,0 +1,36 @@
+#items{
+    display:flex;
+    flex-flow:column;
+    align-items: center;
+    justify-content: space-around;
+    height: 90%;
+    font-family: 'Ubuntu',sans-serif;
+}
+
+#items a{
+    text-decoration: none;
+}
+
+#items a:visited{
+    color:#0099ff;
+}
+
+#sideDrawerContainer{
+    height: 100%;
+    position:fixed;
+    right:0;
+    width:45%;
+    background-color: black;
+    color: white;
+    z-index: 1000;
+}
+
+.slideOpen{
+    transform:translateX(-100%);
+}
+
+/* @media only screen and (min-width:800px){
+    #sideDrawerContainer{
+        display: none;
+    }
+} */
