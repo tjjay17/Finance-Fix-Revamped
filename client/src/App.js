@@ -58,7 +58,7 @@ function App(props) {
   return (
     <div className="App" style = {{overflow:'hidden'}}>
       <Navbar openDrawer = {() => toggle(prev => !prev)} open = {isOpen} color = {color} />
-      {isOpen ? <Sidedrawer className = 'slideOpen' closeDrawer = {() => toggle(prev => !prev)} /> : null}
+      <Sidedrawer toggle = {isOpen} toggleDrawer = {() => toggle(prev => !prev)} />
       {routes}
     </div>
   );

@@ -1,13 +1,21 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './Sidedrawer.css';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 const Sidedrawer = (props) =>{
     let navItems;
-    if(props.autenticated){
+    let drawerClass;
+
+    if(props.toggle){
+        drawerClass = 'slideOpen';
+    }else{
+        drawerClass = 'slideClosed';    
+    }
+
+    if(props.authenticated){
         navItems = (
-            <div id = 'items'>
+            <div id = 'items' onClick = {props.toggleDrawer}>
                 <Link to = '/'>
                     <p>Dashboard</p>
                 </Link>
@@ -15,7 +23,7 @@ const Sidedrawer = (props) =>{
         )
     }else{
         navItems = (
-            <div id = 'items' onClick = {props.closeDrawer}>
+            <div id = 'items' onClick = {props.toggleDrawer}>
                 <Link to = '/'>
                     <p>Home</p>
                 </Link>
@@ -28,9 +36,9 @@ const Sidedrawer = (props) =>{
             </div>
         );
     }
-    
+  
     return(
-        <div id = 'sideDrawerContainer'>
+        <div id = 'sideDrawerContainer' className = {drawerClass}>
             {navItems}
         </div>
     );  
@@ -38,7 +46,7 @@ const Sidedrawer = (props) =>{
 
 const mapStateToProps = state =>{
     return{
-        auth:state.auth.authenticated
+        authenticated:state.auth.authenticated
     }
 }
 
