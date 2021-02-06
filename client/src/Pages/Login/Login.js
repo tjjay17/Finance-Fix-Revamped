@@ -3,10 +3,12 @@ import {connect} from 'react-redux';
 //it makes more sense to migrate all actions to one file.
 //I will do that as I realize there is a need for more reducers.
 import * as actions from '../../redux/actions/auth';
+import {useHistory} from 'react-router-dom';
 import Axios from '../../Axios';
 import './Login.css';
 
 const Login = (props) =>{
+    let history = useHistory();
     useEffect(() =>{
         document.title = 'Login';
     });
@@ -40,6 +42,7 @@ const Login = (props) =>{
                 localStorage.setItem('token',res.data.token);
                 props.addUser(res.data.token,res.data.token,res.data.name);
                 console.log(res.data);
+                history.push('/');
             })
             .catch(e => {
                 updateLoading(false);

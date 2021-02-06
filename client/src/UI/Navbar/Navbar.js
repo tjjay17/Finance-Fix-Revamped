@@ -1,10 +1,26 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './Navbar.css';
+import {connect} from 'react-redux';
 
 const Navbar = (props) =>{
-    return (
-        <div id = 'navContainer' style = {{backgroundColor:props.color}}>
+    let navItems;
+    if(props.authenticated){
+        navItems = (
+            <div id = 'navItems'>
+                <Link to = '/'>
+                    <p>Dashboard</p>
+                </Link>
+                <Link to = '/plaid'>
+                    <p>Plaid</p>
+                </Link>
+                <Link to = '/Expenses'>
+                    <p style = {{color:'black',textDecorationColor:'black'}}>Expenses</p>
+                </Link>
+            </div>   
+        );
+    }else{
+        navItems = (
             <div id = 'navItems'>
                 <Link to = '/'>
                     <p>Home</p>
@@ -16,8 +32,19 @@ const Navbar = (props) =>{
                     <p>Login</p>
                 </Link>
             </div>
+        );
+    }
+    return (
+        <div id = 'navContainer' style = {{backgroundColor:props.color}}>
+            {navItems}
         </div>
     );
 }
 
-export default Navbar;
+const mapStateToProps = state =>{
+    return{
+        authenticated:state.auth.authenticated
+    }
+}
+
+export default connect(mapStateToProps,null)(Navbar);

@@ -1,12 +1,11 @@
 import * as types from './actionTypes';
-import axios from 'axios';
+import Axios from '../../Axios';
 
-export const addToken = (token, email,name) =>{
+export const addToken = (token,email) =>{
     return{
         type:types.STORE_USER,
         email:email,
         token:token,
-        name:name,
         authenticated:null
     }
 }
@@ -16,7 +15,6 @@ export const removeToken = () =>{
         type:types.REMOVE_USER,
         email:'',
         token:'',
-        name:'',
         authenticated:false
     }
 }
@@ -31,21 +29,24 @@ export const authSuccess = () =>{
 export const verifyToken = () =>{
     return dispatch =>{
         const token = localStorage.getItem('token');
-        if(!token){
+        if(token === null){
             dispatch(removeToken());
         }else{
-            axios.post('/verifytoken',{token:token})
+            Axios.post('/verifytoken',{token:token})
                 .then(res =>{
                     if(res.data.status){
                         dispatch(authSuccess());
+                        dispatch(addToken(token,res.data.email))
                     }else{
                         dispatch(removeToken());
+                        localStorage.removeItem('token');
                     }
                 })
                 .catch(e =>{
                     //using alerts: bad Practice! but will come back to fix.
                     alert(e);
                     dispatch(removeToken());
+                    localStorage.removeItem('token');
                 });
         }
     }

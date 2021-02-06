@@ -4,14 +4,20 @@ import Register from './Pages/SignUp/Register';
 import Login from './Pages/Login/Login';
 import Navbar from './UI/Navbar/Navbar';
 import {connect} from 'react-redux';
+import {verifyToken} from './redux/actions/auth';
+import Dashboard from './Pages/Dashboard/Dashboard';
 import React,{useState,useEffect} from 'react';
 
-function App() {
+function App(props) {
   const [color,updateColor] = useState('');
+  const [isLoading,updateScreen] = useState(true);
+  let routes;
 
   useEffect(() =>{
+    props.verify(); 
+    updateScreen(false);
     document.addEventListener('scroll',handleScroll)
-  });
+  },[]);
 
   const handleScroll = () =>{
     if(window.pageYOffset > 0){
@@ -20,12 +26,10 @@ function App() {
       updateColor('white')
     }
   }
- 
-  return (
-    <div className="App" style = {{overflow:'hidden'}}>
-      <Navbar color = {color} />
-      <Switch>
 
+  if(!props.authenticated){
+   routes = (
+      <Switch>
         <Route exact path = '/login'>
           <Login />
         </Route>
@@ -38,6 +42,25 @@ function App() {
           <Home />
         </Route>
       </Switch>
+    );
+  }else{
+    routes = (
+      <Switch>
+        <Route exact path = '/'>
+            <Dashboard />
+        </Route>
+      </Switch>
+    );
+  }
+  
+  // if(isLoading){
+
+  // }
+ 
+  return (
+    <div className="App" style = {{overflow:'hidden'}}>
+      <Navbar color = {color} />
+      {routes}
     </div>
   );
 }
@@ -46,8 +69,14 @@ const mapStateToProps = state =>{
   return{
     token:state.auth.token,
     email:state.auth.email,
-    name:state.auth.name
+    authenticated:state.auth.authenticated
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch =>{
+  return{
+    verify:() => dispatch(verifyToken())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
