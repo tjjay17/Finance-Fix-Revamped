@@ -1,0 +1,37 @@
+#plaidContainer{
+    position:absolute;
+    top:10vh;
+}
+
+.intro{
+    width: 100vw;
+    text-align: center;
+    font-family: 'Ubuntu',sans-serif;
+}
+
+.intro h1{
+    font-size: 9vw;
+}
+
+.intro p{
+    font-size: 3vw;
+    margin-top: 2vh;
+}
+
+#plaidApplication img{
+    width:30vw;
+    height:30vh;
+    position: relative;
+    left:50%;
+    transform: translateX(-50%);
+    margin-top: 0;
+    margin-top: 2vh;
+}
+
+#plaidApplication button{
+    position: relative;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 3vw;
+    margin-top: 5vh;
+}

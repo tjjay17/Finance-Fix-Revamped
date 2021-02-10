@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import './Sidedrawer.css';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -18,6 +18,10 @@ const Sidedrawer = (props) =>{
             <div id = 'items' onClick = {props.toggleDrawer}>
                 <Link to = '/'>
                     <p>Dashboard</p>
+                </Link>
+
+                <Link to = '/plaid'>
+                    <p>Plaid</p>
                 </Link>
             </div>
         )

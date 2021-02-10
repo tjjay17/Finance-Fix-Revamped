@@ -76,7 +76,7 @@ exports.login = (req,res) =>{
 exports.verifyToken = (req,res) =>{
     let token = req.body.token;
     let decoded = jwt.verify(token,constants.JWT_KEY);
-    console.log(decoded);
+    //console.log(decoded);
     if(decoded){
         res.send({status:true,email:decoded.email});
     }else{

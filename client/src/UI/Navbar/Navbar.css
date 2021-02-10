@@ -1,11 +1,11 @@
 #navContainer{
     width:100vw;
     height:12vh;  
-    z-index:100;
     position: fixed;
     /* box-shadow:2px 4px 15px 0px #000000; */
     z-index:100;
-    transition:background-color 1s;
+    transition:box-shadow 1s, background-color 1s;
+    /* box-shadow: 2px 2px 11px 2px #000000; */
 }
 
 #navItems{
@@ -35,6 +35,8 @@
 
 .menuToggle{
     margin-left: 1vw;
+    display: flex;
+    flex-direction: row;
 }
 
 /* #SideDrawerBar{

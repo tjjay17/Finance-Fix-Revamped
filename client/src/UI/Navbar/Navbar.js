@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import './Navbar.css';
 import {connect} from 'react-redux';
@@ -6,7 +6,6 @@ import HamburgerIcon from '../HamburgerIcon/HamburgerIcon';
 
 const Navbar = (props) =>{
     let navItems;
-    const [isOpen,toggle] = useState(false);
     if(props.authenticated){
         navItems = (
             <div id = 'navItems'>
@@ -40,7 +39,7 @@ const Navbar = (props) =>{
         );
     }
     return (
-        <div id = 'navContainer' style = {{backgroundColor:props.color}}>
+        <div id = 'navContainer' style = {{boxShadow:props.shadow,backgroundColor:props.color}}>
             {navItems}
             <div className = 'menuToggle' onClick = {props.openDrawer}>
                 <HamburgerIcon open = {props.open ? 'change' :null} />
