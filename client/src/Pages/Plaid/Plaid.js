@@ -4,6 +4,12 @@ import Axios from '../../Axios';
 import {connect} from 'react-redux';
 import {PlaidLink} from 'react-plaid-link';
 
+//note to self: need to add the verify status to useeffect which will confirm whether user has accesstoken or not
+//if they do, we can go straight to pulling transactions
+//if not, then we will have to give them a link token, access token and so forth.
+//useeffect must check if they have an access token or not.
+//will probably use redux to maintain if they are "plaid authenticated" or not.
+
 const Plaid = (props) =>{
     const [link_token,loadToken] = useState(null);
     useEffect(() =>{
