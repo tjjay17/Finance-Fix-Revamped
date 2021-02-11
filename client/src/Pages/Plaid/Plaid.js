@@ -12,25 +12,38 @@ import {PlaidLink} from 'react-plaid-link';
 
 const Plaid = (props) =>{
     const [link_token,loadToken] = useState(null);
+    const [hasAccess,updateAccess] = useState(false);
+
     useEffect(() =>{
         document.title = 'Plaid';
-        Axios.post('/createlinktoken',{email:props.email})
+        Axios.post('/verifystatus',{email:props.email})
             .then(res =>{
-                loadToken(res.data.link_token);
+                if(res.data.hasAccess){
+                    updateAccess(true);
+                }else{
+                    updateAccess(false);
+                    Axios.post('/createlinktoken',{email:props.email})
+                    .then(res =>{
+                        loadToken(res.data.link_token);
+                    })
+                    .catch(e => console.log(e));
+                }
             })
             .catch(e => console.log(e));
     },[props.email]);
 
-    const onSuccess = (token,metadata) =>{
+    const onSuccess = () =>{
         Axios.post('/getaccesstoken',{link_token:link_token})
-            .then()
+            .then(res => console.log(res))
             .catch(e => console.log(e));
     }
 
-    let plaidPart = link_token ? 
+    let newPlaidUser = link_token ? 
                     (<PlaidLink onSuccess = {onSuccess} token = {link_token}>
                         Connect Your Bank Account
                     </PlaidLink>) : <img src = '/assets/blueSpinner.svg' alt = 'spinner' />;
+                    
+    let existingPlaidUser = <button id = 'getTransactions'>Pull {new Date().toLocaleDateString('default',{month:'long'})} Transactions</button>
 
     return(
         <div id = 'plaidContainer'>
@@ -42,7 +55,7 @@ const Plaid = (props) =>{
                 </p>
             </div>
             <div id = 'plaidApplication'>
-                {plaidPart}
+                {hasAccess ? existingPlaidUser : newPlaidUser}
             </div>
             
         </div>

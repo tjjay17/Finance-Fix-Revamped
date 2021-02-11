@@ -40,7 +40,7 @@ const Login = (props) =>{
         })
             .then(res => {
                 localStorage.setItem('token',res.data.token);
-                props.addUser(res.data.token,res.data.token,res.data.name);
+                props.addUser(res.data.token,res.data.email,res.data.name);
                 console.log(res.data);
                 history.push('/');
             })
