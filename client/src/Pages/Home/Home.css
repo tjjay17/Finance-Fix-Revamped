@@ -30,6 +30,7 @@
     color:#0099ff;
     font-size: 1rem;
     text-align: center;
+    font-family: 'ubuntu',sans-serif;
 }
 
 #chartImg{
@@ -68,7 +69,7 @@
 }
 
 #features p{
-    font-family: 'lato', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 @media (hover:hover){

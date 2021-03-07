@@ -21,8 +21,8 @@ const Home = () =>{
     return(
         <div id = 'homeContainer'>
             <h1>Finance - Fix</h1>
-            <p style = {{fontSize:'4vw'}}>Plaid API integrated system to manage your finances</p>
-            <img id = 'chartImg' src = '/assets/goals.svg' alt = 'chart' />
+            {/* <p style = {{fontSize:'4vw'}}>Plaid API integrated system to manage your finances</p> */}
+            <img id = 'chartImg' src = '/assets/Finance.svg' alt = 'chart' />
             <div id = 'features'>
                     <FeatureCard src = '/assets/blueDollar.svg' feature = {'Keep Track Of How Much You Spend And Adjust.'}/>
                     <FeatureCard src = '/assets/plaid.svg' feature = {'Optionally Use Plaid To Directly Integrate Your Bank Account.'}/>

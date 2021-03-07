@@ -3,6 +3,7 @@ import './Plaid.css';
 import Axios from '../../Axios';
 import {connect} from 'react-redux';
 import {PlaidLink} from 'react-plaid-link';
+import {useHistory} from 'react-router-dom';
 
 //note to self: need to add the verify status to useeffect which will confirm whether user has accesstoken or not
 //if they do, we can go straight to pulling transactions
@@ -11,6 +12,7 @@ import {PlaidLink} from 'react-plaid-link';
 //will probably use redux to maintain if they are "plaid authenticated" or not.
 
 const Plaid = (props) =>{
+    let history = useHistory();
     const [link_token,loadToken] = useState(null);
     const [hasAccess,updateAccess] = useState(false);
 
@@ -32,9 +34,12 @@ const Plaid = (props) =>{
             .catch(e => console.log(e));
     },[props.email]);
 
-    const onSuccess = () =>{
-        Axios.post('/getaccesstoken',{link_token:link_token})
-            .then(res => console.log(res))
+    const onSuccess = (token,metadata) =>{
+        Axios.post('/getaccesstoken',{link_token:token, email:props.email})
+            .then(res => {
+                console.log('hi',res.data);
+                history.push('/plaid');
+            })
             .catch(e => console.log(e));
     }
 
@@ -56,8 +61,7 @@ const Plaid = (props) =>{
             </div>
             <div id = 'plaidApplication'>
                 {hasAccess ? existingPlaidUser : newPlaidUser}
-            </div>
-            
+            </div>   
         </div>
     );
 }
