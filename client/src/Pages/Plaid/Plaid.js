@@ -4,6 +4,7 @@ import Axios from '../../Axios';
 import {connect} from 'react-redux';
 import {PlaidLink} from 'react-plaid-link';
 import {useHistory} from 'react-router-dom';
+import axios from 'axios';
 
 //note to self: need to add the verify status to useeffect which will confirm whether user has accesstoken or not
 //if they do, we can go straight to pulling transactions
@@ -15,6 +16,7 @@ const Plaid = (props) =>{
     let history = useHistory();
     const [link_token,loadToken] = useState(null);
     const [hasAccess,updateAccess] = useState(false);
+    const [transactions,updateTransactions] = useState(null);
 
     useEffect(() =>{
         document.title = 'Plaid';
@@ -43,12 +45,20 @@ const Plaid = (props) =>{
             .catch(e => console.log(e));
     }
 
+    const pullTransactions = () =>{
+        Axios.post('/fetchtransactions',{email:props.email})
+            .then(res =>{
+                console.log(res.data);
+            })
+            .catch(e => console.log(e));
+    }
+
     let newPlaidUser = link_token ? 
                     (<PlaidLink onSuccess = {onSuccess} token = {link_token}>
                         Connect Your Bank Account
                     </PlaidLink>) : <img src = '/assets/blueSpinner.svg' alt = 'spinner' />;
                     
-    let existingPlaidUser = <button id = 'getTransactions'>Pull {new Date().toLocaleDateString('default',{month:'long'})} Transactions</button>
+    let existingPlaidUser = <button onClick = {pullTransactions} id = 'getTransactions'>Pull {new Date().toLocaleDateString('default',{month:'long'})} Transactions</button>
 
     return(
         <div id = 'plaidContainer'>

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
+const redis = require('./redis');
 const app = express();
 
 app.use(bodyParser.json());

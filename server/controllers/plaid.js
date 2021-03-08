@@ -1,6 +1,7 @@
 const plaid = require('plaid');
 const constants = require('../Constants');
 const db = require('../DBconfig');
+const redis = require('../redis');
 
 const client = new plaid.Client({
     clientID: constants.PLAID_CLIENT,
@@ -56,4 +57,29 @@ exports.get_access_token = async (req,res) =>{
     }catch(e){
         res.send({error:e});
     }
+}
+
+exports.fetch_transactions = (req,res) =>{
+    let email = req.body.email;
+    let acc_token;
+    redis.get('access_token',async (err,token) =>{
+        if(token){
+            console.log('here',token);
+            acc_token = token;
+        }else{
+            let query = 'SELECT * FROM plaid_tokens WHERE email = $1';
+            db.pool.query(query,[email])
+                .then(results => {
+                    redis.setex('access_token', 5400, results.rows[0].access_token);
+                    acc_token = results.rows[0].access_token;
+                })
+                .catch(e => res.send(e));
+        }
+        const response = await client.getTransactions(acc_token,'2021-01-02','2021-02-02')
+        .catch((e) =>{
+            console.log(e);
+        });   
+        res.send(response.transactions);  
+    });
+    
 }
