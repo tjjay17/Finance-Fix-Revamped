@@ -62,6 +62,11 @@ exports.get_access_token = async (req,res) =>{
 exports.fetch_transactions = (req,res) =>{
     let email = req.body.email;
     let acc_token;
+    let current_date = new Date().toISOString().split('T')[0];
+    let first_date = new Date();
+    first_date.setDate(1);
+    first_date = first_date.toISOString().split('T')[0];
+
     redis.get('access_token',async (err,token) =>{
         if(token){
             console.log('here',token);
@@ -75,10 +80,11 @@ exports.fetch_transactions = (req,res) =>{
                 })
                 .catch(e => res.send(e));
         }
-        const response = await client.getTransactions(acc_token,'2021-01-02','2021-02-02')
-        .catch((e) =>{
-            console.log(e);
-        });   
+        
+        const response = await client.getTransactions(acc_token,first_date,current_date)
+            .catch((e) =>{
+                res.send(e);
+            });   
         res.send(response.transactions);  
     });
     

@@ -4,7 +4,7 @@ import Axios from '../../Axios';
 import {connect} from 'react-redux';
 import {PlaidLink} from 'react-plaid-link';
 import {useHistory} from 'react-router-dom';
-import axios from 'axios';
+import PlaidCard from '../../Components/PlaidCard/PlaidCard';
 
 //note to self: need to add the verify status to useeffect which will confirm whether user has accesstoken or not
 //if they do, we can go straight to pulling transactions
@@ -14,6 +14,7 @@ import axios from 'axios';
 
 const Plaid = (props) =>{
     let history = useHistory();
+    let table;
     const [link_token,loadToken] = useState(null);
     const [hasAccess,updateAccess] = useState(false);
     const [transactions,updateTransactions] = useState(null);
@@ -49,6 +50,7 @@ const Plaid = (props) =>{
         Axios.post('/fetchtransactions',{email:props.email})
             .then(res =>{
                 console.log(res.data);
+                updateTransactions(res.data);
             })
             .catch(e => console.log(e));
     }
@@ -60,6 +62,13 @@ const Plaid = (props) =>{
                     
     let existingPlaidUser = <button onClick = {pullTransactions} id = 'getTransactions'>Pull {new Date().toLocaleDateString('default',{month:'long'})} Transactions</button>
 
+    let addToExpenses = <button id = 'plaidToExpenseBtn'>Integrate to Expenses</button>
+    
+    if(transactions){
+        table = transactions.map(eachTrans =>
+            <PlaidCard key = {eachTrans.transaction_id} name = {eachTrans.name} merchant = {eachTrans.merchant} date = {eachTrans.date} amt = {eachTrans.amount}/> 
+        );
+    }
     return(
         <div id = 'plaidContainer'>
             <div className = 'intro'>
@@ -71,7 +80,11 @@ const Plaid = (props) =>{
             </div>
             <div id = 'plaidApplication'>
                 {hasAccess ? existingPlaidUser : newPlaidUser}
-            </div>   
+                {transactions ? addToExpenses : null}
+            </div>
+            <div id = 'transactionsList'>
+                {table}
+            </div> 
         </div>
     );
 }

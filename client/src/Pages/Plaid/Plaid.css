@@ -1,6 +1,6 @@
 #plaidContainer{
     position:absolute;
-    top:10vh;
+    top:15vh;
 }
 
 .intro{
@@ -32,13 +32,16 @@
     position: relative;
     left:50%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: 3vw;
     margin-top: 5vh;
     font-family: 'Ubuntu',sans-serif;
     cursor:pointer;
 }
 
-#getTransactions{
+#getTransactions,#plaidToExpenseBtn{
     color:#0077ff;
     border-radius: 25px;
     padding:2%;
@@ -47,8 +50,19 @@
     transition: 0.4s background-color, 0.4s color;
 }
 
+#transactionsList{
+    position: relative;
+    left:50%;
+    transform: translateX(-25%);
+    margin-top: 4vh;
+}
+
+/* #plaidToExpenseBtn{
+
+} */
+
 @media (hover:hover){
-    #getTransactions:hover{
+    #getTransactions:hover,#plaidToExpenseBtn:hover{
         background-color: #0099ff;
         color:white;
         border:3px solid black;
