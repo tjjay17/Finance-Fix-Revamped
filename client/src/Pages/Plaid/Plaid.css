@@ -11,6 +11,7 @@
 
 .intro h1{
     font-size: 9vw;
+    color:#0099ff;
 }
 
 .intro p{
@@ -18,23 +19,26 @@
     margin-top: 2vh;
 }
 
+#plaidApplication{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 #plaidApplication img{
     width:30vw;
     height:30vh;
-    position: relative;
+    /* position: relative;
     left:50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); */
     margin-top: 0;
     margin-top: 2vh;
 }
 
 #plaidApplication button{
-    position: relative;
+    /* position: relative;
     left:50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    transform: translateX(-50%); */
     font-size: 3vw;
     margin-top: 5vh;
     font-family: 'Ubuntu',sans-serif;
@@ -57,8 +61,14 @@
     margin-top: 4vh;
 }
 
-/* #plaidToExpenseBtn{
+#plaidToExpenseBtn{
+    margin-left:2vw;
+}
 
+/* .plaidSpinner{
+    position: absolute;
+    left:20%;
+    z-index: 1;
 } */
 
 @media (hover:hover){

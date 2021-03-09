@@ -55,14 +55,21 @@ const Plaid = (props) =>{
             .catch(e => console.log(e));
     }
 
+    const PlaidToExpenses = () =>{
+        Axios.post('/plaidtoexpenses',{transactions:transactions})
+            .then(res =>{
+                console.log(res);
+            })
+            .catch(e => console.log(e));
+    }
+
     let newPlaidUser = link_token ? 
                     (<PlaidLink onSuccess = {onSuccess} token = {link_token}>
                         Connect Your Bank Account
-                    </PlaidLink>) : <img src = '/assets/blueSpinner.svg' alt = 'spinner' />;
+                    </PlaidLink>) : <img class = 'plaidSpinner' src = '/assets/blueSpinner.svg' alt = 'spinner' />;
                     
     let existingPlaidUser = <button onClick = {pullTransactions} id = 'getTransactions'>Pull {new Date().toLocaleDateString('default',{month:'long'})} Transactions</button>
-
-    let addToExpenses = <button id = 'plaidToExpenseBtn'>Integrate to Expenses</button>
+    let addToExpenses = <button onClick = {PlaidToExpenses} id = 'plaidToExpenseBtn'>Integrate to Expenses</button>
     
     if(transactions){
         table = transactions.map(eachTrans =>

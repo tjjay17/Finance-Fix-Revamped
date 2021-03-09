@@ -87,5 +87,16 @@ exports.fetch_transactions = (req,res) =>{
             });   
         res.send(response.transactions);  
     });
-    
+}
+
+exports.plaidtoexpenses = (req,res) =>{
+    let transactions = req.body.transactions;
+    let query = 'INSERT INTO expenses (Name,Amount,id,date) VALUES($1,$2,$3,$4)';
+    for(let i = 0; i<transactions.length; i++){
+        if(transactions[i].amount >= 0){
+            db.pool.query(query,[transactions[i].name, transactions[i].amount, transactions[i].transaction_id, transactions[i].date])
+            .then(res => res.send('success'))
+            .catch(e => res.send(e));
+        }
+    }
 }

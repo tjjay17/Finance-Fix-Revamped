@@ -13,5 +13,6 @@ router.post('/verifystatus',plaidController.verifystatus);
 router.post('/createlinktoken', plaidController.create_link_token);
 router.post('/getaccesstoken', plaidController.get_access_token);
 router.post('/fetchtransactions',plaidController.fetch_transactions);
+router.post('/plaidtoexpenses',plaidController.plaidtoexpenses);
 
 module.exports = router;
