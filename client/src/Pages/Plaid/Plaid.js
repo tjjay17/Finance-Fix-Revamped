@@ -35,19 +35,19 @@ const Plaid = (props) =>{
                 }
             })
             .catch(e => console.log(e));
-    },[]);
+    },[props.id,props.email]);
 
     const onSuccess = (token,metadata) =>{
-        Axios.post('/getaccesstoken',{link_token:token, email:props.id})
+        Axios.post('/getaccesstoken',{link_token:token, email:props.email,id:props.id})
             .then(res => {
-                console.log('hi',res.data);
+                console.log('hi',res);
                 history.push('/plaid');
             })
-            .catch(e => console.log(e));
+            .catch(e => console.log(e + ':('));
     }
 
     const pullTransactions = () =>{
-        Axios.post('/fetchtransactions',{email:props.id})
+        Axios.post('/fetchtransactions',{email:props.email})
             .then(res =>{
                 console.log(res.data);
                 updateTransactions(res.data);

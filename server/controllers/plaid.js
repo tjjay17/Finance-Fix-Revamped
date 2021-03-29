@@ -10,12 +10,12 @@ const client = new plaid.Client({
 });
 
 exports.create_link_token = async (req,res) =>{
-    let id = req.body.id.toString();
+    let id = req.body.id;
     console.log(id);
     try{
         const tokenResponse = await client.createLinkToken({
             user:{
-                client_user_id:id
+                client_user_id:id.toString()
             },
             client_name:'Finance Fix',
             products:['transactions'],
@@ -49,13 +49,16 @@ exports.verifystatus = (req,res) =>{
 exports.get_access_token = async (req,res) =>{
     const LINK_TOKEN = req.body.link_token;
     const id = req.body.id;
+    const email = req.body.email;
+    //console.log(LINK_TOKEN, id);
     let query;
     try{
         const tokenResponse = await client.exchangePublicToken(LINK_TOKEN);
-        query = 'INSERT INTO plaid_tokens (email,access_token) VALUES($1,$2)';
-        db.pool.query(query, [email,tokenResponse.access_token])
-            .then(res => res.sendStatus(200))
-            .catch(e => res.send(e));
+        console.log('tresponse',tokenResponse);
+        query = 'INSERT INTO plaid_tokens (id,email,access_token) VALUES($1,$2,$3)';
+        db.pool.query(query, [id,email,tokenResponse.access_token])
+            .then(res => res.send('Inserted'))
+            .catch(e => res.send(e + ':('));
     }catch(e){
         res.send({error:e});
     }
