@@ -1,12 +1,14 @@
 import * as types from './actionTypes';
 import Axios from '../../Axios';
 
-export const addToken = (token,email) =>{
+export const addToken = (token,email,name,id) =>{
     return{
         type:types.STORE_USER,
         email:email,
+        name:name,
         token:token,
-        authenticated:null
+        authenticated:null,
+        id:id
     }
 }
 
@@ -14,7 +16,9 @@ export const removeToken = () =>{
     return{
         type:types.REMOVE_USER,
         email:'',
+        name:"",
         token:'',
+        id:'',
         authenticated:false
     }
 }
@@ -36,7 +40,7 @@ export const verifyToken = () =>{
                 .then(res =>{
                     if(res.data.status){
                         dispatch(authSuccess());
-                        dispatch(addToken(token,res.data.email))
+                        dispatch(addToken(token, res.data.email, res.data.name, res.data.id ))
                     }else{
                         dispatch(removeToken());
                         localStorage.removeItem('token');

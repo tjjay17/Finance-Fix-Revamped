@@ -15,6 +15,7 @@ const authReducer = (state = initialState,action) =>{
                 token:action.token,
                 email:action.email,
                 name:action.name,
+                id:action.id,
                 authenticated:true
             }
         case types.REMOVE_USER:
@@ -23,7 +24,8 @@ const authReducer = (state = initialState,action) =>{
                 token:'',
                 email:'',
                 authenticated:false,
-                name:''
+                name:'',
+                id:''
             }
         case types.VERIFY_TOKEN:
             return{

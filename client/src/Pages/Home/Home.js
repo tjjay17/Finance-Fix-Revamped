@@ -14,7 +14,7 @@ const Home = () =>{
     if(inView){
         let elem = document.getElementById('features');
         elem.style.opacity = 1;
-        elem.style.transform = 'translateY(50px)';
+        elem.style.transform = 'translateY(30px)';
     }
    
     let history = useHistory();
@@ -29,7 +29,7 @@ const Home = () =>{
     
     return(
         <div id = 'homeContainer'>
-            <h1 id = 'h'>Finance - Fix {inView.toString()}</h1>
+            <h1 id = 'h'>Finance - Fix</h1>
             <img id = 'chartImg' src = '/assets/financedata.svg' alt = 'chart' />
             <div id = 'features' ref = {ref}>
                     <FeatureCard src = '/assets/blueDollar.svg' feature = {'Keep Track Of How Much You Spend And Adjust.'}/>

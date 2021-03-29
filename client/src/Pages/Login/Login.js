@@ -40,7 +40,7 @@ const Login = (props) =>{
         })
             .then(res => {
                 localStorage.setItem('token',res.data.token);
-                props.addUser(res.data.token,res.data.email,res.data.name);
+                props.addUser(res.data.token,res.data.email,res.data.name,res.data.id);
                 console.log(res.data);
                 history.push('/');
             })
@@ -74,7 +74,7 @@ const Login = (props) =>{
 
 const mapDispatchToProps = dispatch =>{
     return{
-        addUser:(token,email,name) => dispatch(actions.addToken(token,email,name))
+        addUser:(token,email,name,id) => dispatch(actions.addToken(token,email,name,id))
     }
 }
 

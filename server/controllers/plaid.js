@@ -10,11 +10,12 @@ const client = new plaid.Client({
 });
 
 exports.create_link_token = async (req,res) =>{
-    let email = req.body.email;
+    let id = req.body.id.toString();
+    console.log(id);
     try{
         const tokenResponse = await client.createLinkToken({
             user:{
-                client_user_id:email
+                client_user_id:id
             },
             client_name:'Finance Fix',
             products:['transactions'],
@@ -31,6 +32,7 @@ exports.verifystatus = (req,res) =>{
     //this will check if the user already has an access token.
     //if they do, then we won't need to issue a plaid link as they are already connected.
     //otherwise, you issue plaid token => get access => so forth.
+    //let id = req.body.id;
     let email = req.body.email;
     let query = 'SELECT * FROM plaid_tokens WHERE email = $1';
     db.pool.query(query,[email])
@@ -46,7 +48,7 @@ exports.verifystatus = (req,res) =>{
 
 exports.get_access_token = async (req,res) =>{
     const LINK_TOKEN = req.body.link_token;
-    const email = req.body.email;
+    const id = req.body.id;
     let query;
     try{
         const tokenResponse = await client.exchangePublicToken(LINK_TOKEN);

@@ -27,7 +27,7 @@ const Plaid = (props) =>{
                     updateAccess(true);
                 }else{
                     updateAccess(false);
-                    Axios.post('/createlinktoken',{email:props.email})
+                    Axios.post('/createlinktoken',{email:props.email,id:props.id})
                     .then(res =>{
                         loadToken(res.data.link_token);
                     })
@@ -35,10 +35,10 @@ const Plaid = (props) =>{
                 }
             })
             .catch(e => console.log(e));
-    },[props.email]);
+    },[]);
 
     const onSuccess = (token,metadata) =>{
-        Axios.post('/getaccesstoken',{link_token:token, email:props.email})
+        Axios.post('/getaccesstoken',{link_token:token, email:props.id})
             .then(res => {
                 console.log('hi',res.data);
                 history.push('/plaid');
@@ -47,7 +47,7 @@ const Plaid = (props) =>{
     }
 
     const pullTransactions = () =>{
-        Axios.post('/fetchtransactions',{email:props.email})
+        Axios.post('/fetchtransactions',{email:props.id})
             .then(res =>{
                 console.log(res.data);
                 updateTransactions(res.data);
@@ -66,7 +66,7 @@ const Plaid = (props) =>{
     let newPlaidUser = link_token ? 
                     (<PlaidLink onSuccess = {onSuccess} token = {link_token}>
                         Connect Your Bank Account
-                    </PlaidLink>) : <img class = 'plaidSpinner' src = '/assets/blueSpinner.svg' alt = 'spinner' />;
+                    </PlaidLink>) : <img className = 'plaidSpinner' src = '/assets/blueSpinner.svg' alt = 'spinner' />;
                     
     let existingPlaidUser = <button onClick = {pullTransactions} id = 'getTransactions'>Pull {new Date().toLocaleDateString('default',{month:'long'})} Transactions</button>
     let addToExpenses = <button onClick = {PlaidToExpenses} id = 'plaidToExpenseBtn'>Integrate to Expenses</button>
@@ -98,7 +98,8 @@ const Plaid = (props) =>{
 
 const mapStateToProps = state =>{
     return{
-        email:state.auth.email
+        email:state.auth.email,
+        id:state.auth.id
     }
 }
 

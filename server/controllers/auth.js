@@ -61,7 +61,7 @@ exports.login = (req,res) =>{
                                 //expiresin hour and a half
                                 let jwToken = jwt.sign({email:email},constants.JWT_KEY,{expiresIn:5400});
                                 //console.log(jwToken);
-                                res.send({token:jwToken,email:email,name:result.rows[0].fname});
+                                res.send({token:jwToken,email:email,name:result.rows[0].fname,id:result.rows[0].id});
                             }else{
                                 res.send(409);
                             }
@@ -78,7 +78,14 @@ exports.verifyToken = (req,res) =>{
     let decoded = jwt.verify(token,constants.JWT_KEY);
     //console.log(decoded);
     if(decoded){
-        res.send({status:true,email:decoded.email});
+        let query = 'Select * From users where email = $1';
+        db.pool.query(query,[decoded.email])
+            .then(result =>{
+                if(result.rows.length === 1){
+                    res.send({status:true,email:decoded.email,name : result.rows[0].name, id:result.rows[0].id});
+                }
+            })
+            .catch(e => console.log(e));
     }else{
         res.send({status:false,email:''});
     }     
