@@ -23,6 +23,10 @@ const Sidedrawer = (props) =>{
                 <Link to = '/plaid'>
                     <p>Plaid</p>
                 </Link>
+
+                <Link to = '/expenses'>
+                    <p>Expenses</p>
+                </Link>
             </div>
         )
     }else{

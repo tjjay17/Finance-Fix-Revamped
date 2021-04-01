@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import './Navbar.css';
 import {connect} from 'react-redux';
@@ -6,6 +6,7 @@ import HamburgerIcon from '../HamburgerIcon/HamburgerIcon';
 
 const Navbar = (props) =>{
     let navItems;
+
     if(props.authenticated){
         navItems = (
             <div id = 'navItems'>
@@ -20,6 +21,7 @@ const Navbar = (props) =>{
                 </Link>
                 <p id = 'userBar'>
                     {props.email}
+                    <img id = 'arrowDown' src = '/assets/downarrow.png' alt = 'down' width = '20' height = '20'/>
                 </p>
             </div>   
         );
@@ -51,7 +53,8 @@ const Navbar = (props) =>{
 const mapStateToProps = state =>{
     return{
         authenticated:state.auth.authenticated,
-        email:state.auth.email
+        email:state.auth.email,
+        name:state.auth.name
     }
 }
 

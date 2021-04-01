@@ -39,12 +39,12 @@
     flex-direction: row;
 }
 
-/* #SideDrawerBar{
-    height:10vh;
-    width:100vw;
-    background-color:#0099ff;
-    position:fixed;
-} */
+#arrowDown{
+    transition:transform 2s;
+}
+
+
+
 
 @media only screen and (min-width:800px){
     #navContainer{
@@ -68,10 +68,11 @@
 @media (hover:hover){
     #navItems a:hover{
         text-decoration: underline;
+
     }
 
     #userBar:hover{
-        color:#0099ff;
+        color:#6200ff;
     }
 }
 

@@ -73,7 +73,9 @@ const Plaid = (props) =>{
     
     if(transactions){
         table = transactions.map(eachTrans =>
-            <PlaidCard key = {eachTrans.transaction_id} name = {eachTrans.name} merchant = {eachTrans.merchant} date = {eachTrans.date} amt = {eachTrans.amount}/> 
+            <div key = {eachTrans.transaction_id}>
+                <PlaidCard name = {eachTrans.name} merchant = {eachTrans.merchant} date = {eachTrans.date} amt = {eachTrans.amount}/> 
+            </div>
         );
     }
     return(

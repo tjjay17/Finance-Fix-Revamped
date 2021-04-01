@@ -12,6 +12,7 @@ const Dashboard = () =>{
                 Your previous months expenses will not show up after that month has passed.<br /><br />
                 They aren't deleted! A work in progress is filtering expenses.
             </p>
+            <img id = 'welcome' src = '/assets/welcome.svg' alt = 'welcome'/>
         </div>
     );
 }
