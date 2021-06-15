@@ -43,6 +43,23 @@
     animation-fill-mode: forwards;
 }
 
+#budgetForm{
+    width:100vw;
+    text-align: center;
+    margin-top: 10vh;
+}
+
+#budgetForm input{
+    width:80vw;
+    border:none;
+    border-bottom:1px solid black;
+    outline: none;
+}
+
+#budgetForm input:focus{
+    border-bottom: 2px solid #0099ff;
+}
+
 @media only screen and (min-width:700px){
     #welcome{
         width:50vw;

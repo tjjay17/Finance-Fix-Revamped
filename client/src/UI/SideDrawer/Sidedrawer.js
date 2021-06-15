@@ -27,6 +27,13 @@ const Sidedrawer = (props) =>{
                 <Link to = '/expenses'>
                     <p>Expenses</p>
                 </Link>
+
+                <div onClick = {() =>{
+                    localStorage.removeItem('token');
+                    window.location.reload();
+                }}>
+                    <p>Sign Out</p>
+                </div>
             </div>
         )
     }else{
