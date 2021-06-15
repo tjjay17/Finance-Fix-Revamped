@@ -7,6 +7,11 @@ import HamburgerIcon from '../HamburgerIcon/HamburgerIcon';
 const Navbar = (props) =>{
     let navItems;
 
+    const signOut = () =>{
+        localStorage.removeItem('token');
+        window.location.reload();
+    }
+
     if(props.authenticated){
         navItems = (
             <div id = 'navItems'>
@@ -19,10 +24,14 @@ const Navbar = (props) =>{
                 <Link to = '/Expenses'>
                     <p style = {{color:'black',textDecorationColor:'black'}}>Expenses</p>
                 </Link>
-                <p id = 'userBar'>
-                    {props.email}
-                    <img id = 'arrowDown' src = '/assets/downarrow.png' alt = 'down' width = '20' height = '20'/>
-                </p>
+                {/* <div id = 'barAndMenu'> */}
+                    <p id = 'userBar' onClick = {signOut}>
+                        {/* {props.email}
+                        <img id = 'arrowDown' src = '/assets/downarrow.png' alt = 'down' width = '20' height = '20'/> */}
+                        Sign Out
+                    </p>
+                    
+                {/* </div> */}
             </div>   
         );
     }else{
